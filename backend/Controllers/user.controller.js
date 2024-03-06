@@ -80,10 +80,7 @@ exports.loginUser = async (req, res) => {
 exports.requestOTP = async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await User.findOne({
-      where: { email },
-      attributes: { include: ["email", "uid"] },
-    });
+    const user = await User.findOne({ email }, { attributes: ["email"] });
     if (!user) {
       return res.status(404).json({ error: "Email is not registered." });
     }
